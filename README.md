@@ -15,9 +15,9 @@ The published study evaluates feature extraction and fine-tuning of ResNet50 usi
 
 ## Additional Synthetic-Face Images (Post-Research Extension)
 
-Following the original research, approximately **150–200 additional AI-generated face images** were collected from [This Person Does Not Exist](https://thispersondoesnotexist.com/) to explore the model's behavior on a further set of synthetic faces as generative image technology evolves.
+Following the original research, approximately **150–200 additional AI-generated face images** were collected from [This Person Does Not Exist](https://thispersondoesnotexist.com/) and used them for additional model training to adapt the classifier to more synthetic-face examples as generative image technology evolves.
 
-**Research distinction:** These images are a later project extension, **not part of the published 140K-image dataset or the published experimental results**. Their exact count, whether they were used for further training or evaluation only, the sampling procedure, and separate evaluation metrics have not yet been documented here. Accordingly, no new accuracy or generalization claim is made for this sample.
+**Research distinction:** These images are a later project extension, **not part of the published 140K-image dataset or the published experimental results**. The additional images were used for retraining, not solely as a held-out evaluation set. Their exact count, the mix with the original training data, retraining configuration, sampling procedure, and independent evaluation metrics have not yet been documented here. Accordingly, no new accuracy or generalization claim is made for this sample.
 
 This Person Does Not Exist is associated with StyleGAN-generated faces, so this additional collection alone does not establish performance on other generator families, such as diffusion models. Future work should evaluate independently sourced real and synthetic images from multiple generators, with a documented held-out test protocol.
 
@@ -65,7 +65,7 @@ Receive Classification: The model will analyze the facial features and classify 
 3) Examples: Displays sample images suitable for classification.
 
 ## Real-World Data Integration
-The repository reports the following metrics for an experiment; the evaluation protocol for the additional 150–200 images has not yet been documented:
+The repository reports the following metrics for an experiment; the independent evaluation protocol after retraining on the additional 150–200 images has not yet been documented:
 
 Accuracy: 96.85%
 
@@ -82,7 +82,7 @@ For developmentof this model, I wrote *'app.py'*, *'model.py'*, *'requirements.t
 ## Conclusion and Future Scope
 **Conclusion**
 
-Fine-tuning the ResNet50 model significantly enhances classification accuracy. Further evaluation on additional synthetic faces is an ongoing extension; its effect on model performance has not yet been established in this documentation. This research lays the groundwork for effective AI-generated image detection.
+Fine-tuning the ResNet50 model significantly enhances classification accuracy. The application model was subsequently retrained with approximately 150–200 additional synthetic-face images. Whether this improved generalization remains unverified without independent held-out evaluation. This research lays the groundwork for effective AI-generated image detection.
 
 **Future Scope**
 
