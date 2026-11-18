@@ -1,116 +1,91 @@
+# Reality Check — Real vs. AI-Generated Face Classifier
 
-# Ai Image Classifier : Fake Vs Real Faces
+A ResNet50-based face-image classifier with a Gradio interface. **Reality Check** predicts whether an uploaded face image is real or AI-generated and displays class probabilities and inference time.
 
-## Published Research
+**[Try the application on Hugging Face](https://huggingface.co/spaces/khanaabidabdal/RealityCheck)** · **[Read the published research](https://doi.org/10.56147/aaiet.1.2.7)**
 
-This project is related to the peer-reviewed research article:
+> **Scope:** This project focuses on face images. A prediction is not proof that an image is real or synthetic, and performance can vary across image sources and generators.
 
-**Khan Aabid Abdal Mashkoor (2025).** *Classifying Real and AI-Generated Images Using Fine-Tuned ResNet50.* **Journal of Advanced Artificial Intelligence, Engineering and Technology**, Volume 1, Issue 2 (Mar–Apr 2025), Article 07.
+## Relationship to the published research
+
+This application builds on the research paper:
+
+**Khan Aabid Abdal Mashkoor (2025).** *Classifying Real and AI-Generated Images Using Fine-Tuned ResNet50.* **Journal of Advanced Artificial Intelligence, Engineering and Technology**, Volume 1, Issue 2 (Mar–Apr 2025).
 
 - **DOI:** https://doi.org/10.56147/aaiet.1.2.7
-- **Official publication:** https://artificial-intelligence.engineering-technology.wren-research-journals.com/1/article/view/7
-- **Published article PDF:** https://artificial-intelligence.engineering-technology.wren-research-journals.com/1/article/download/7/9/65
+- **Journal article:** https://artificial-intelligence.engineering-technology.wren-research-journals.com/1/article/view/7
+- **Published PDF:** https://artificial-intelligence.engineering-technology.wren-research-journals.com/1/article/download/7/9/65
+- **Original dataset:** [140K Real and Fake Faces (Kaggle)](https://www.kaggle.com/datasets/xhlulu/140k-real-and-fake-faces)
 
-The published study evaluates feature extraction and fine-tuning of ResNet50 using the [140K Real and Fake Faces dataset](https://www.kaggle.com/datasets/xhlulu/140k-real-and-fake-faces). The paper reports 89.97% accuracy for feature extraction and 97.76%, 95.42%, and 96.85% for fine-tuned experiments at 5, 10, and 15 epochs respectively. The 5-epoch result varied on repetition, so the highest reported accuracy should not be interpreted as guaranteed performance on new images.
+The **published research experiments** and the **later application retraining** are distinct. The additional images described below were not part of the original paper's reported experiments.
 
-## Additional Synthetic-Face Images (Post-Research Extension)
+## Application update: retraining with additional synthetic faces
 
-Following the original research, approximately **150–200 additional AI-generated face images** were collected from [This Person Does Not Exist](https://thispersondoesnotexist.com/) , combined them with the original dataset using files accessed from Google Drive, and retrained the classifier on the combined dataset to incorporate additional synthetic-face examples.
+After the original model was developed, I noticed that it struggled with some AI-generated face images encountered later. One possible explanation is that the training data did not adequately represent the images being encountered; advances in generative image technology can also contribute to such differences, although the specific cause was not isolated.
 
-**Research distinction:** These images are a later project extension, **not part of the published 140K-image dataset or the published experimental results**. The additional images were merged into the original dataset, which was accessed from Google Drive, and the combined data was used for training. They were not solely a held-out evaluation set. The exact added-image count, class balance, train/validation/test allocation, retraining configuration, and independent post-retraining evaluation metrics have not yet been documented here. Accordingly, no new accuracy or generalization claim is made for this sample.
+To improve the application:
 
-This Person Does Not Exist is associated with StyleGAN-generated faces, so this additional collection alone does not establish performance on other generator families, such as diffusion models. Future work should evaluate independently sourced real and synthetic images from multiple generators, with a documented held-out test protocol.
+1. I collected **approximately 150–200 additional AI-generated face images** from [This Person Does Not Exist](https://thispersondoesnotexist.com/).
+2. I **combined those images with the original dataset**, using data accessed through Google Drive.
+3. I **retrained the ResNet50-based classifier using transfer learning** on the combined dataset.
+4. After retraining, I tested the application on **different, previously unseen images** obtained from the same website. **These test images were not the images added to the training dataset.**
+5. I observed that the updated application classified those new examples more successfully than before.
 
-## Overview :
+This is a **post-publication application improvement**, not a revision of the published paper's experimental results.
 
-The ["Reality Check"](https://huggingface.co/spaces/khanaabidabdal/RealityCheck) application is designed to classify images of faces as either real or AI-generated. Utilizing the ResNet50 model, our classifier achieves up to 95% accuracy. This repository provides an overview of the application, detailed results from experiments, and future scope for enhancements.
+### Interpretation and limitations
 
-## Introduction :
+The tests on different images provide useful evidence of improved behavior on previously unseen samples from that source. However, the exact number of test images, before/after scores, and a formal evaluation protocol have not yet been documented, so **no numerical improvement or new accuracy figure is claimed for this retraining step**.
 
-This research addresses the growing concern of the misuse of generative technology by developing models capable of detecting AI-generated images. Two primary techniques were employed: feature extraction and fine-tuning of the ResNet50 model. The experiments highlight the importance of model customization and iterative training to enhance the capabilities of deep learning models for specific tasks.
+Images from the same website may share generator-specific characteristics. Success on unseen images from that source does not establish generalization to every modern image generator, including diffusion-based systems. A future benchmark should use documented, independent test sets from multiple sources and generator families.
 
-## User Interface :
+## Published experimental results
 
-The user interface (UI) of the "Reality Check" application is designed to be intuitive and user-friendly, allowing users to easily classify images of faces as either real or AI-generated.
+The following metrics are **from the original paper**, not from the later application retraining:
 
-## Important Guidelines :
+| ResNet50 approach | Accuracy |
+| --- | ---: |
+| Feature extraction | 89.97% |
+| Fine-tuning — 5 epochs | 97.76% |
+| Fine-tuning — 10 epochs | 95.42% |
+| Fine-tuning — 15 epochs | 96.85% |
 
-Focus on Faces: Ensure the uploaded images clearly show faces.
+The paper notes that the highest 5-epoch result was not consistently reproduced. These values should not be interpreted as guaranteed accuracy on arbitrary new images.
 
-Image Examples: Refer to examples to understand suitable images.
+## Application features
 
-Avoid Other AI-Generated Content: Do not upload images of non-facial AI-generated content.
+- Upload a face image through a Gradio interface.
+- View predictions for **Real** and **Fake** classes.
+- See prediction probabilities and inference time.
+- Try the example images provided with the application.
 
-## Usage Instructions :
-Prepare Your Image: Ensure the face is visible and prominent.
+The classifier is intended for face images, not general AI-generated artwork or other image categories.
 
-Upload the Image: Use the provided interface to upload your image for classification.
+## Repository files
 
-Receive Classification: The model will analyze the facial features and classify the image as either real or fake.
+| Path | Description |
+| --- | --- |
+| `Real_Or_Fake.ipynb` | Development and experimentation notebook |
+| `RealityCheck.pth` | Saved PyTorch model weights |
+| `model.py` | ResNet50 model definition |
+| `app.py` | Gradio prediction interface |
+| `requirements.txt` | Python dependencies |
+| `eaxmples/` | Example images (existing directory name) |
 
-## Interface Components :
+**Implementation note:** The repository currently contains issues that may prevent a fresh local run: `model.py` refers to an undefined `output_shape`, while `app.py` expects an `examples/` directory instead of the existing `eaxmples/`. These are existing code issues; this documentation update does not modify or verify the running application. The saved model file is also large and may require special handling when cloning or redistributing.
 
-**Image Upload Section:**
+## Future work
 
-1) Drop Image Here / Click to Upload: Drag and drop an image or click to open a file dialog.
-
-2) Submit Button: Click to submit the image for classification.
-
-**Classification Results:**
-
-1) Predictions: Displays the classification result.
-
-2) Prediction Time: Shows the time taken for the analysis.
-
-3) Examples: Displays sample images suitable for classification.
-
-## Real-World Data Integration
-The repository reports the following metrics for an experiment; the independent evaluation protocol after retraining on the additional 150–200 images has not yet been documented:
-
-Accuracy: 96.85%
-
-Precision (fake): 94.75%
-
-Recall (fake): 94.16%
-
-F1 Score: 94.45%
-
-## About Files 
-
-For developmentof this model, I wrote *'app.py'*, *'model.py'*, *'requirements.txt'*, and downlaoded the state_dict of the trained model and saved it as the RealityCheck. 
-
-## Conclusion and Future Scope
-**Conclusion**
-
-Fine-tuning the ResNet50 model significantly enhances classification accuracy. The application model was subsequently retrained on the original dataset combined with approximately 150–200 additional synthetic-face images accessed through Google Drive. Whether this improved generalization remains unverified without independent held-out evaluation. This research lays the groundwork for effective AI-generated image detection.
-
-**Future Scope**
-
-Data Augmentation: Implement advanced data augmentation techniques.
-
-Larger Datasets: Train the model on larger, varied datasets.
-
-Alternative Architectures: Explore other architectures like EfficientNet, DenseNet, or Vision Transformers.
-
-Continual Learning: Develop mechanisms for continual learning.
-Real-Time Application: Enhance the model for real-time classification.
-
-Broader Application: Extend capabilities to detect other AI-generated content.
-
-Ethical and Legal Considerations: Research ethical and legal implications of AI-generated content detection.
+- Reproduce and document the retraining procedure, data splits, and exact additional-image count.
+- Benchmark the original and updated models on the same held-out test sets.
+- Evaluate images from different generators and sources, including diffusion models.
+- Improve the application setup and make model loading reproducible.
+- Investigate augmentation, alternative architectures, and robustness to image processing.
 
 ## References
-Goodfellow, Ian, et al. "Generative adversarial nets." Advances in neural information processing systems 27 (2014).
 
-Jovanović, Radiša. "Convolutional Neural Networks for Real and Fake Face Classification." Sinteza 2022.
-
-He, Kaiming, et al. "Deep residual learning for image recognition." CVPR, 2016.
-
-["140k Real and Fake Faces," Kaggle.](https://www.kaggle.com/datasets/xhlulu/140k-real-and-fake-faces)
-
-"70k Real Faces," Kaggle Deepfake Detection Challenge.
-
-"1 Million Fake Faces on Kaggle," Kaggle Deepfake Detection Challenge.
-
-
-
+- [Published research article and DOI](https://doi.org/10.56147/aaiet.1.2.7)
+- [140K Real and Fake Faces dataset](https://www.kaggle.com/datasets/xhlulu/140k-real-and-fake-faces)
+- [This Person Does Not Exist](https://thispersondoesnotexist.com/)
+- He, K. et al. (2016). *Deep Residual Learning for Image Recognition*. CVPR.
+- Goodfellow, I. et al. (2014). *Generative Adversarial Nets*. NeurIPS.
