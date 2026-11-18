@@ -15,9 +15,9 @@ The published study evaluates feature extraction and fine-tuning of ResNet50 usi
 
 ## Additional Synthetic-Face Images (Post-Research Extension)
 
-Following the original research, approximately **150–200 additional AI-generated face images** were collected from [This Person Does Not Exist](https://thispersondoesnotexist.com/) and used them for additional model training to adapt the classifier to more synthetic-face examples as generative image technology evolves.
+Following the original research, approximately **150–200 additional AI-generated face images** were collected from [This Person Does Not Exist](https://thispersondoesnotexist.com/) , combined them with the original dataset using files accessed from Google Drive, and retrained the classifier on the combined dataset to incorporate additional synthetic-face examples.
 
-**Research distinction:** These images are a later project extension, **not part of the published 140K-image dataset or the published experimental results**. The additional images were used for retraining, not solely as a held-out evaluation set. Their exact count, the mix with the original training data, retraining configuration, sampling procedure, and independent evaluation metrics have not yet been documented here. Accordingly, no new accuracy or generalization claim is made for this sample.
+**Research distinction:** These images are a later project extension, **not part of the published 140K-image dataset or the published experimental results**. The additional images were merged into the original dataset, which was accessed from Google Drive, and the combined data was used for training. They were not solely a held-out evaluation set. The exact added-image count, class balance, train/validation/test allocation, retraining configuration, and independent post-retraining evaluation metrics have not yet been documented here. Accordingly, no new accuracy or generalization claim is made for this sample.
 
 This Person Does Not Exist is associated with StyleGAN-generated faces, so this additional collection alone does not establish performance on other generator families, such as diffusion models. Future work should evaluate independently sourced real and synthetic images from multiple generators, with a documented held-out test protocol.
 
@@ -82,7 +82,7 @@ For developmentof this model, I wrote *'app.py'*, *'model.py'*, *'requirements.t
 ## Conclusion and Future Scope
 **Conclusion**
 
-Fine-tuning the ResNet50 model significantly enhances classification accuracy. The application model was subsequently retrained with approximately 150–200 additional synthetic-face images. Whether this improved generalization remains unverified without independent held-out evaluation. This research lays the groundwork for effective AI-generated image detection.
+Fine-tuning the ResNet50 model significantly enhances classification accuracy. The application model was subsequently retrained on the original dataset combined with approximately 150–200 additional synthetic-face images accessed through Google Drive. Whether this improved generalization remains unverified without independent held-out evaluation. This research lays the groundwork for effective AI-generated image detection.
 
 **Future Scope**
 
